@@ -18,6 +18,7 @@ def hello_world() :
 
 @app.route('/book')
 def book_list() : 
+    """Enable a user to retrieve a book list from the api."""
     response = Response(
         json.dumps(books), status = 200)
     return response
