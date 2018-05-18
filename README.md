@@ -11,7 +11,10 @@ pip3 freeze > requirements.txt
 Running the flask server
 
 ```
-export FLASK_APP=hello_world.py
+export FLASK_APP=app.py
 python3 -m flask run
 ```
-
+also 
+```
+python3 app.py
+```

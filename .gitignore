@@ -22,3 +22,8 @@ htmlcov/
 .coverage
 .coverage.*
 *,cover
+
+# database
+*.db
+# the file to test the database
+test.py
