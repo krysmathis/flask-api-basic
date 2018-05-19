@@ -12,6 +12,6 @@ def authenticate(username, password) :
 
 def identity(payload) : 
     """ the user passes in the user id token"""
-    user_id = payload['identify']
+    user_id = payload['identity']
     return User.find_by_id(user_id)
 

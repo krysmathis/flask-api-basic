@@ -1,10 +1,12 @@
 from flask import Flask, Response, abort, render_template
-from flask_restful import Resource, Api, reqparse
-from flask_jwt import JWT, jwt_required, current_identity
+from flask_restful import Resource, Api
+from flask_jwt import JWT
 
 import json
 
 from security import authenticate, identity
+from models.user import UserRegister
+from models.item import Item, ItemList
 
 app = Flask (__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True 
@@ -13,26 +15,14 @@ api = Api(app)
 
 jwt = JWT(app, authenticate, identity) #/auth
 
-books = [{
-    'id': 33,
-    'title': 'The Raven',
-    'author_id': 1,
-}]
 
-
-@app.route('/')
+@app.route('/') 
 def hello_world() : 
     return render_template('home.html')
 
-
-@app.route('/book')
-def book_list() : 
-    """Enable a user to retrieve a book list from the api."""
-    response = Response(
-        json.dumps(books), status = 200)
-    return response
-
-
+api.add_resource(UserRegister, '/register')
+api.add_resource(Item, '/item/<string:name>')
+api.add_resource(ItemList, '/items')
 
 if __name__ == '__main__' : 
     app.run(debug=True)
