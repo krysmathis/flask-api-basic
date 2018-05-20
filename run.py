@@ -1,6 +1,6 @@
 from app import app
-from create_tables import create_db
+from db import Db
 
 @app.before_first_request
 def create_tables():
-    create_db()
+    Db.create_db()

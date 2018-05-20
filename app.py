@@ -30,6 +30,6 @@ api.add_resource(AreaList, '/areas')
 api.add_resource(Validator, '/validate')
 
 if __name__ == '__main__' : 
-    from create_tables import create_db
-    create_db()
+    from db import Db
+    Db.create_db()
     app.run(debug=True)

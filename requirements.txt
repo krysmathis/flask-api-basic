@@ -4,6 +4,7 @@ click==6.7
 Flask==1.0.2
 Flask-JWT==0.3.2
 Flask-RESTful==0.3.6
+Flask-SQLAlchemy==2.3.2
 isort==4.3.4
 itsdangerous==0.24
 Jinja2==2.10
@@ -14,6 +15,7 @@ PyJWT==1.4.2
 pylint==1.8.4
 pytz==2018.4
 six==1.11.0
+SQLAlchemy==1.2.7
 Werkzeug==0.14.1
 wrapt==1.10.11
-uwsgi
+uswgi
