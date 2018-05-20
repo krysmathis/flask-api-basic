@@ -33,6 +33,10 @@ cursor.execute(create_table)
 # cursor.execute(insert_query, user)
 # cursor.execute("INSERT INTO items VALUES (NULL, 'test', 9.99)")
 
+area = ('location1', 1, '2018-05-20', '01010101')
+insert_query = ("INSERT INTO areas VALUES (NULL, ?, ?, ?, ?);")
+cursor.execute(insert_query, area)
+
 # users = [
 #     ('rolf', 'asdf'),
 #     ('anne', 'xyz')
