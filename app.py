@@ -8,6 +8,7 @@ from security import authenticate, identity
 from models.user import UserRegister
 from models.item import Item, ItemList
 from models.area import Area, AreaList
+from models.validator import Validator
 
 app = Flask (__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True 
@@ -26,6 +27,9 @@ api.add_resource(Item, '/item/<string:name>')
 api.add_resource(Area, '/area/<string:location>')
 api.add_resource(ItemList, '/items')
 api.add_resource(AreaList, '/areas')
+api.add_resource(Validator, '/validate')
 
 if __name__ == '__main__' : 
+    from create_tables import create_db
+    create_db()
     app.run(debug=True)
