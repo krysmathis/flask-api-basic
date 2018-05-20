@@ -5,10 +5,11 @@ from flask_jwt import JWT
 import json
 
 from security import authenticate, identity
-from models.user import UserRegister
-from models.item import Item, ItemList
-from models.area import Area, AreaList
-from models.validator import Validator
+from resources.user import UserRegister
+from resources.item import Item, ItemList
+from resources.area import Area, AreaList
+from resources.validator import Validator
+
 
 app = Flask (__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True 
