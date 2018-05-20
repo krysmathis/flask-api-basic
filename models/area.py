@@ -65,7 +65,7 @@ class Area(Resource):
         area = {'location': area, 'locationid': data['locationid'], 'captured_date': data['captured_date'], 'image': data['image']}
 
         try:
-            Item.insert(area)
+            Area.insert(area)
         except:
             return {"message": "An error occurred inserting the area."}
 
