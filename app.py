@@ -7,6 +7,7 @@ import json
 from security import authenticate, identity
 from models.user import UserRegister
 from models.item import Item, ItemList
+from models.area import Area, AreaList
 
 app = Flask (__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True 
@@ -22,7 +23,9 @@ def hello_world() :
 
 api.add_resource(UserRegister, '/register')
 api.add_resource(Item, '/item/<string:name>')
+api.add_resource(Area, '/area/<string:location>')
 api.add_resource(ItemList, '/items')
+api.add_resource(AreaList, '/areas')
 
 if __name__ == '__main__' : 
     app.run(debug=True)

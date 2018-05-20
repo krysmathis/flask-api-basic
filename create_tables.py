@@ -18,6 +18,10 @@ create_table = "CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY, name t
 # now run the sql
 cursor.execute(create_table)
 
+create_table = "CREATE TABLE IF NOT EXISTS areas (id INTEGER PRIMARY KEY, location text, locid int, capture_date DATE, image BLOB)"
+# now run the sql
+cursor.execute(create_table)
+
 # run queries
 delete_query = "DELETE FROM users"
 cursor.execute(delete_query)
