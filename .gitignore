@@ -27,3 +27,4 @@ htmlcov/
 *.db
 # the file to test the database
 test.py
+db_old.py
