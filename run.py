@@ -1,7 +1,7 @@
 from app import app
 from db import db
 
-db.init.app(app)
+db.init__app(app)
 
 @app.before_first_request
 def create_tables() : 
