@@ -3,7 +3,7 @@ from db import db
 class AreaModel(db.Model) : 
     __tablename__ = 'areas'
     
-    # location text, locid int, capture_date DATE, image BLOB)"
+    # location text, locid int, capture_date DATE, image url)"
     id = db.Column(db.Integer, primary_key=True)
     location = db.Column(db.String(80))
     locationid = db.Column(db.Integer)
