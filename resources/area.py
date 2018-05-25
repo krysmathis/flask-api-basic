@@ -31,6 +31,7 @@ class Area(Resource):
         help="This field cannot be left blank!"
     )
 
+
     @jwt_required()
     def get(self, name):
         
@@ -40,6 +41,7 @@ class Area(Resource):
             
         return {'message': 'Item not found'}, 404
 
+    @jwt_required()
     def post(self, location):
         if AreaModel.find_by_name(location):
             return {'message': "An item with area '{}' already exists.".format(location)}

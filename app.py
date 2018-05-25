@@ -9,6 +9,7 @@ from resources.user import UserRegister
 from resources.item import Item, ItemList
 from resources.area import Area, AreaList
 from resources.validator import Validator
+from resources.capture import Capture
 
 
 app = Flask (__name__)
@@ -20,6 +21,9 @@ api = Api(app)
 
 jwt = JWT(app, authenticate, identity) #/auth
 
+@app.before_first_request
+def create_tables() : 
+    db.create_all()
 
 @app.route('/') 
 def hello_world() : 
@@ -32,6 +36,7 @@ def db_status():
 api.add_resource(UserRegister, '/register')
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(Area, '/area/<string:location>')
+api.add_resource(Capture, '/capture/<string:device>')
 api.add_resource(ItemList, '/items')
 api.add_resource(AreaList, '/areas')
 api.add_resource(Validator, '/validate')
