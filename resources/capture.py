@@ -47,9 +47,9 @@ class Capture(Resource):
         # may need to parse again here to convert image to proper sqlite format
         capture = CaptureModel(device, image_url=data['image_url'], valid_capture=0)
        
-        capture.save_to_db()
-        # try:
-        # except:
-        #    return {"message": "An error occurred inserting the device."}
+        try:
+            capture.save_to_db()
+        except:
+           return {"message": "An error occurred inserting the device."}
 
         return capture.json()
