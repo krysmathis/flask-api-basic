@@ -32,7 +32,7 @@ def hello_world() :
     # get data from database - call api return json
     rows = [capture.json() for capture in CaptureModel.query.all()]
     # populate the  page with the data
-    return render_template('home.html', title='yolo', rows=rows)
+    return render_template('home.html', title='Shelf-Flask-API', rows=rows)
 
 @app.route('/status')
 def db_status(): 

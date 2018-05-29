@@ -2,19 +2,28 @@
 
 {% block body %}
 <h1>{{ title }}</h1>
-<div>
-    <input type="text" id="username"/>
-    <input type="password" id="pwd"/>
-    <button type="submit" id="login-btn">Submit</button>
-</div>
-<div>
-    <button id="refresh_db">Refresh</button>
-    <div class="db-refresh__container">
-    </div>
-</div>    
-<ul>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Device</th>
+        <th scope="col">Image</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Valid</th>
+      </tr>
+    </thead>
+    <tbody>
     {% for row in rows %}
-    <li>{{ row.device }} {{row.image_url}}</li>
+      <tr>
+        <td>{{ row.device }}</td>
+        <td>{{ row.image_url }}</td>
+        <td>{{ row.capture_date }}</td>
+        <td>{{ row.capture_time }}</td>
+        <td>{{ row.valid_capture }}</td>
+    </tr>
     {% endfor %}
-</ul>
+    </tbody>
+  </table>
+
+
 {% endblock %}
