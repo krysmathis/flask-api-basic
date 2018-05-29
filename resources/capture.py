@@ -53,3 +53,8 @@ class Capture(Resource):
            return {"message": "An error occurred inserting the device."}
 
         return capture.json()
+
+class CaptureList(Resource):
+
+    def get(self):
+        return [capture.json() for capture in CaptureModel.query.all()]

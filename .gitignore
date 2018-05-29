@@ -28,3 +28,4 @@ htmlcov/
 # the file to test the database
 test.py
 db_old.py
+config.py

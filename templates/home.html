@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+<h1>{{ title }}</h1>
 <div>
     <input type="text" id="username"/>
     <input type="password" id="pwd"/>
@@ -11,5 +12,9 @@
     <div class="db-refresh__container">
     </div>
 </div>    
-
+<ul>
+    {% for row in rows %}
+    <li>{{ row.device }} {{row.image_url}}</li>
+    {% endfor %}
+</ul>
 {% endblock %}

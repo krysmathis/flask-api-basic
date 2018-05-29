@@ -11,7 +11,7 @@ from resources.area import Area, AreaList
 from resources.validator import Validator
 from resources.capture import Capture
 from resources.device import Device
-
+from models.capture import CaptureModel
 
 app = Flask (__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -29,7 +29,10 @@ jwt = JWT(app, authenticate, identity) #/auth
 
 @app.route('/') 
 def hello_world() : 
-    return render_template('home.html')
+    # get data from database - call api return json
+    rows = [capture.json() for capture in CaptureModel.query.all()]
+    # populate the  page with the data
+    return render_template('home.html', title='yolo', rows=rows)
 
 @app.route('/status')
 def db_status(): 
