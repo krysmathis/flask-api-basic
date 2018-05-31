@@ -43,9 +43,9 @@ class Capture(Resource):
     def post(self, device):
         
         data = self.parser.parse_args()
-
+        image = data['image_url'].replace('www.dropbox.com','dl.dropboxusercontent.com')
         # may need to parse again here to convert image to proper sqlite format
-        capture = CaptureModel(device, image_url=data['image_url'], valid_capture=0)
+        capture = CaptureModel(device, image_url=image, valid_capture=0)
        
         try:
             capture.save_to_db()

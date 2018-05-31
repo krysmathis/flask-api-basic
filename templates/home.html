@@ -14,9 +14,10 @@
     </thead>
     <tbody>
     {% for row in rows %}
+    {% set image_source = row.image_url.replace('www.dropbox.com','dl.dropboxusercontent.com') %}
       <tr>
         <td>{{ row.device }}</td>
-        <td>{{ row.image_url }}</td>
+        <td><img class="img-thumbnail" src={{ image_source }}/></td>
         <td>{{ row.capture_date }}</td>
         <td>{{ row.capture_time }}</td>
         <td>{{ row.valid_capture }}</td>
