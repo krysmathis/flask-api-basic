@@ -22,9 +22,14 @@ from machine.object_detection.utils import visualization_utils as vis_util
 class Detector(Resource):
     
     __detection = []
-    
+    __url = ''
+    __prediction_url = ''
+
     def detection(self):
         return self.__detection
+
+    def url(self):
+        return self.__prediction_url
 
     def load_image_into_numpy_array(self, image):
         (im_width, im_height) = image.size
@@ -32,11 +37,13 @@ class Detector(Resource):
             (im_height, im_width, 3)).astype(np.uint8)
 
     def download_image(self, url):
-        file_len = len([file for file in os.listdir('test_images/') if file[-4:] == ".jpg"])
+        file_len = len([file for file in os.listdir('static/images') if file[-4:] == ".jpg"])
         response = requests.get(url, stream=True)
-        with open(os.path.join('test_images','image{}.jpg'.format(file_len+1)), 'wb') as out_file:
+        filename = os.path.join('static/images','image{}.jpg'.format(file_len+1))
+        with open(filename, 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
         del response
+        return filename
 
     def run_inference_for_single_image(self,image, graph):
         with graph.as_default():
@@ -84,8 +91,7 @@ class Detector(Resource):
                     output_dict['detection_masks'] = output_dict['detection_masks'][0]
             return output_dict
 
-    def __init__(self):
-        self.detect()
+
     
     def detect(self):
         # What model to download. This is the folder with the model.
@@ -106,8 +112,11 @@ class Detector(Resource):
         file_len = len([file for file in os.listdir(PATH_TO_TEST_IMAGES_DIR) if file[-4:] == ".jpg"])
         print(file_len)
         #TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(math.ceil(file_len/2), file_len) ]
-        TEST_IMAGE_PATHS = [os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format('21'))]
+        #TEST_IMAGE_PATHS = [os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format('21'))]
+        TEST_IMAGE_PATHS = []
+        DOWNLOAD_PATH = self.download_image(self.__url)
 
+        TEST_IMAGE_PATHS.append(DOWNLOAD_PATH)
         # Size, in inches, of the output images.
         IMAGE_SIZE = (12, 8)
 
@@ -125,6 +134,7 @@ class Detector(Resource):
         category_index = label_map_util.create_category_index(categories)
 
         for image_path in TEST_IMAGE_PATHS:
+            print('image_path: ', image_path)
             image = Image.open(image_path)
             # print("origial image size: ", image.size)
             # the array based representation of the image will be used later in order to prepare the
@@ -152,9 +162,13 @@ class Detector(Resource):
             # Saving the image
             #IMAGE_SAVE_PATH = os.path.join(PATH_TO_TEST_IMAGES_DIR,'image_prediction.jpg')
             IMAGE_SAVE_PATH = image_path.replace('.jpg','_prediction.jpg')
-            
+            self.__prediction_url = IMAGE_SAVE_PATH
             im = Image.fromarray(image_np)
             im.save(IMAGE_SAVE_PATH)
 
             detections = [output_dict['detection_classes'][idx] for idx, v in enumerate(list(output_dict['detection_scores'])) if v > .8]
             self.__detection = [category_index[v]['name'] for v in detections]
+
+    def __init__(self, url):
+        self.__url = url
+        self.detect()

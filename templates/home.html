@@ -7,6 +7,7 @@
       <tr>
         <th scope="col">Device</th>
         <th scope="col">Image</th>
+        <th scope="col">Boxed</th>
         <th scope="col">Date</th>
         <th scope="col">Time</th>
         <th scope="col">Valid</th>
@@ -18,6 +19,7 @@
       <tr>
         <td>{{ row.device }}</td>
         <td><img class="img-thumbnail" src={{ image_source }}/></td>
+        <td><img class="img-thumbnail" src={{ row.prediction_url}}/></td>
         <td>{{ row.capture_date }}</td>
         <td>{{ row.capture_time }}</td>
         <td>{{ row.valid_capture }}</td>

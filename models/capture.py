@@ -10,14 +10,17 @@ class CaptureModel(db.Model) :
     capture_date = db.Column(db.Date)
     capture_time = db.Column(db.String)
     image_url = db.Column(db.String)
+    prediction_url = db.Column(db.String)
     valid_capture = db.Column(db.Integer)
 
-    def __init__(self, device, image_url, valid_capture) : 
+
+    def __init__(self, device, image_url, valid_capture, prediction_url) : 
         self.device = device
         self.capture_date = datetime.datetime.now()
         self.capture_time = time.strftime("%H:%M:%S")
         self.image_url = image_url
         self.valid_capture = valid_capture
+        self.prediction_url = prediction_url
 
     def json(self):
         
@@ -28,7 +31,8 @@ class CaptureModel(db.Model) :
             'capture_date': str(self.capture_date),
             'capture_time': str(self.capture_time),
             'image_url': self.image_url,
-            'valid_capture': self.valid_capture
+            'valid_capture': self.valid_capture,
+            'prediction_url': self.prediction_url
         }
 
     @classmethod

@@ -45,11 +45,14 @@ class Capture(Resource):
         data = self.parser.parse_args()
         image = data['image_url'].replace('www.dropbox.com','dl.dropboxusercontent.com')
         # may need to parse again here to convert image to proper sqlite format
-        capture = CaptureModel(device, image_url=image, valid_capture=0)
-        detector = Detector()
+        
+        detector = Detector(url=image)
+        capture = CaptureModel(device, image_url=image, valid_capture=0, prediction_url=detector.url())
+        
+
         try:
             capture.save_to_db()
-            detector.detect()
+            
         except:
            return {"message": "An error occurred inserting the device."}
 

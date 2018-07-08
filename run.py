@@ -1,5 +1,6 @@
 from app import app
 from db import db
+# image manager to clear out the images file
 
 db.init_app(app)
 
