@@ -21,6 +21,11 @@ from machine.object_detection.utils import visualization_utils as vis_util
 
 class Detector(Resource):
     
+    __detection = []
+    
+    def detection(self):
+        return self.__detection
+
     def load_image_into_numpy_array(self, image):
         (im_width, im_height) = image.size
         return np.array(image.getdata()).reshape(
@@ -33,7 +38,7 @@ class Detector(Resource):
             shutil.copyfileobj(response.raw, out_file)
         del response
 
-    def run_inference_for_single_image(image, graph):
+    def run_inference_for_single_image(self,image, graph):
         with graph.as_default():
             with tf.Session() as sess:
             # Get handles to input and output tensors
@@ -87,10 +92,10 @@ class Detector(Resource):
         MODEL_NAME = 'frozen_graph'
 
         # Path to frozen detection graph. This is the actual model that is used for the object detection.
-        PATH_TO_CKPT = '../' + MODEL_NAME + '/frozen_inference_graph.pb'
+        PATH_TO_CKPT = 'machine/' + MODEL_NAME + '/frozen_inference_graph.pb'
 
         # List of the strings that is used to add correct label for each box.
-        PATH_TO_LABELS = os.path.join('../data', 'object-detection.pbtxt')
+        PATH_TO_LABELS = os.path.join('machine/data', 'object-detection.pbtxt')
 
         NUM_CLASSES = 2
 
@@ -152,4 +157,4 @@ class Detector(Resource):
             im.save(IMAGE_SAVE_PATH)
 
             detections = [output_dict['detection_classes'][idx] for idx, v in enumerate(list(output_dict['detection_scores'])) if v > .8]
-            return [category_index[v]['name'] for v in detections]
+            self.__detection = [category_index[v]['name'] for v in detections]

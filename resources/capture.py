@@ -53,7 +53,8 @@ class Capture(Resource):
         except:
            return {"message": "An error occurred inserting the device."}
 
-        return capture.json()
+        #return capture.json()
+        return detector.detection()
 
 class CaptureList(Resource):
 
