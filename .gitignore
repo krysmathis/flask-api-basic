@@ -29,3 +29,7 @@ htmlcov/
 test.py
 db_old.py
 config.py
+
+# helper files that I didn't write
+png.py
+object_detection/object_detection
