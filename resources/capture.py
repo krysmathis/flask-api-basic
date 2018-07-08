@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.capture import CaptureModel
-
+from resources.detector import Detector
 
 class Capture(Resource):
     TABLE_NAME = 'image_captures'
@@ -46,9 +46,10 @@ class Capture(Resource):
         image = data['image_url'].replace('www.dropbox.com','dl.dropboxusercontent.com')
         # may need to parse again here to convert image to proper sqlite format
         capture = CaptureModel(device, image_url=image, valid_capture=0)
-       
+        detector = Detector()
         try:
             capture.save_to_db()
+            detector.detect()
         except:
            return {"message": "An error occurred inserting the device."}
 
